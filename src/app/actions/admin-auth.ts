@@ -25,8 +25,9 @@ export async function adminLogin(username: string, password: string) {
     const cookieStore = await cookies();
     cookieStore.set("session", encryptedSessionData, {
       httpOnly: true,
-      secure: false, // Set to false to avoid any HTTP/HTTPS cookie drop issues
-      maxAge: 60 * 60 * 24, // 1 day
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24, // 24 hours
       path: "/",
     });
 

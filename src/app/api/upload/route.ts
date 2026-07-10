@@ -1,28 +1,15 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/session";
-import { cookies } from "next/headers";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import crypto from "crypto";
 import fs from "fs";
 
 export async function POST(req: Request) {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get("session")?.value;
   const session = await getSession();
   
   if (!session || session.role !== "admin") {
-    const rawCookie = req.headers.get("cookie");
-    const origin = req.headers.get("origin");
-    const referer = req.headers.get("referer");
-    
-    return NextResponse.json({ 
-      error: "Unauthorized: " + JSON.stringify({ 
-        hasCookie: !!sessionCookie, 
-        rawCookie: rawCookie ? rawCookie : "MISSING",
-        origin, referer 
-      }), 
-    }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {

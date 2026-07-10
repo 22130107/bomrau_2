@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { getSession } from "@/lib/session";
-import { cookies } from "next/headers";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
 
 export async function GET(req: Request) {
@@ -35,14 +34,10 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get("session")?.value;
   const session = await getSession();
   
   if (!session || session.role !== "admin") {
-    return NextResponse.json({ 
-      error: "Unauthorized: " + JSON.stringify({ hasCookie: !!sessionCookie, session }), 
-    }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
