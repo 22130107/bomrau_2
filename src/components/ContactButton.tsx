@@ -9,22 +9,32 @@ export function ContactButton({ link }: { link?: string }) {
     <div className="fixed bottom-20 right-10 z-[9999] flex flex-col items-end gap-3 pointer-events-none">
       {open && (
         <div className="flex flex-col items-end gap-3 animate-fade-in pointer-events-auto">
-          <div className="flex items-center gap-2 bg-white rounded-full pr-5 pl-3 py-2 shadow-lg pointer-events-none">
+          <a
+            href="https://zalo.me/0939808019"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 bg-white rounded-full pr-5 pl-3 py-2 shadow-lg hover:scale-105 active:scale-95 transition-all duration-200"
+          >
             <span className="w-11 h-11 flex items-center justify-center shrink-0" style={{backgroundColor:"#0068FF", borderRadius:"6px"}}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-[22px] h-[22px]">
                 <path d="M12.49 10.272v-.45h1.347v6.322h-.77a.576.576 0 0 1-.577-.573v.001a3.27 3.27 0 0 1-1.938.632a3.284 3.284 0 0 1-3.284-3.282a3.284 3.284 0 0 1 3.284-3.282a3.27 3.27 0 0 1 1.937.632zM6.919 7.79v.205c0 .382-.051.694-.3 1.06l-.03.034a8 8 0 0 0-.242.285L2.024 14.8h4.895v.768a.576.576 0 0 1-.577.576H0v-.362c0-.443.11-.641.25-.847L4.858 9.23H.192V7.79zm8.551 8.354a.48.48 0 0 1-.48-.48V7.79h1.441v8.354zM20.693 9.6a3.306 3.306 0 1 1 .002 6.612a3.306 3.306 0 0 1-.002-6.612m-10.14 5.253a1.932 1.932 0 1 0 0-3.863a1.932 1.932 0 0 0 0 3.863m10.14-.003a1.945 1.945 0 1 0 0-3.89a1.945 1.945 0 0 0 0 3.89"/>
               </svg>
             </span>
             <span className="text-[13px] font-semibold text-gray-800 whitespace-nowrap">Chat Zalo</span>
-          </div>
-          <div className="flex items-center gap-2 bg-white rounded-full pr-5 pl-3 py-2 shadow-lg pointer-events-none">
+          </a>
+          <a
+            href={link || "https://facebook.com"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 bg-white rounded-full pr-5 pl-3 py-2 shadow-lg hover:scale-105 active:scale-95 transition-all duration-200"
+          >
             <span className="w-11 h-11 bg-[rgb(24,119,242)] rounded-full flex items-center justify-center shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-6 h-6">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
             </span>
             <span className="text-[13px] font-semibold text-gray-800 whitespace-nowrap">Messenger</span>
-          </div>
+          </a>
         </div>
       )}
 
