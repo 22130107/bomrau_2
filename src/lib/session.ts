@@ -21,7 +21,7 @@ export function getCookieOptions(): {
 } {
   return {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.COOKIE_SECURE === "true",
     sameSite: "lax" as const,
     maxAge: SESSION_MAX_AGE,
     path: "/",
@@ -73,7 +73,7 @@ export async function clearSessionCookie() {
   const cookieStore = await cookies();
   cookieStore.set("session", "", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.COOKIE_SECURE === "true",
     sameSite: "lax" as const,
     maxAge: 0, // Xóa ngay lập tức
     path: "/",
