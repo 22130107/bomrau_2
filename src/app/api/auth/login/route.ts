@@ -27,7 +27,6 @@ export async function POST(req: Request) {
     cookieStore.set("session", encryptedSessionData, {
       httpOnly: true,
       secure: false, // Set to false to avoid any HTTP/HTTPS cookie drop issues
-      maxAge: 60 * 60 * 24, // 1 day
       path: "/",
     });
 
