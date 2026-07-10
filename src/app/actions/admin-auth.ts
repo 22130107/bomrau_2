@@ -25,7 +25,7 @@ export async function adminLogin(username: string, password: string) {
     const cookieStore = await cookies();
     cookieStore.set("session", encryptedSessionData, {
       httpOnly: true,
-      secure: false, // Set to false to allow login over HTTP IP address
+      secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24, // 1 day
       path: "/",
     });
