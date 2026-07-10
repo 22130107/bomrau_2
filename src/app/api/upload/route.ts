@@ -12,8 +12,16 @@ export async function POST(req: Request) {
   const session = await getSession();
   
   if (!session || session.role !== "admin") {
+    const rawCookie = req.headers.get("cookie");
+    const origin = req.headers.get("origin");
+    const referer = req.headers.get("referer");
+    
     return NextResponse.json({ 
-      error: "Unauthorized: " + JSON.stringify({ hasCookie: !!sessionCookie, session }), 
+      error: "Unauthorized: " + JSON.stringify({ 
+        hasCookie: !!sessionCookie, 
+        rawCookie: rawCookie ? "PRESENT" : "MISSING",
+        origin, referer 
+      }), 
     }, { status: 401 });
   }
 
