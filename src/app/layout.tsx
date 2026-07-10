@@ -19,8 +19,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Bomrau UI Demo",
-  description: "Dự án mẫu sử dụng các component của bomrau.",
+  title: "shoptft",
+  description: "Shop TFT uy tín, chất lượng",
 };
 
 export default function RootLayout({
