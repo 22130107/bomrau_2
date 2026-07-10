@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export const revalidate = 0; // Dynamic rendering
 
 export default async function AdminPage() {
-  const session = await getSession();
+  const session = await getSession() as { id: number; username: string; role: string } | null;
   if (!session || session.role !== "admin") redirect("/login");
 
   const [productRows] = await pool.query<RowDataPacket[]>(`
