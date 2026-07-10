@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { adminLogin } from "@/app/actions/admin-auth";
+
 
 export function AdminLoginForm() {
   const [username, setUsername] = useState("");
@@ -15,10 +15,24 @@ export function AdminLoginForm() {
     e.preventDefault();
     setError("");
     setLoading(true);
-    const res = await adminLogin(username, password);
-    setLoading(false);
-    if (res.error) setError(res.error);
-    else router.push("/admin");
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+      setLoading(false);
+      
+      if (!res.ok || data.error) {
+        setError(data.error || "Đã có lỗi xảy ra");
+      } else {
+        router.push("/admin");
+      }
+    } catch (err) {
+      setLoading(false);
+      setError("Không thể kết nối đến máy chủ");
+    }
   };
 
   return (

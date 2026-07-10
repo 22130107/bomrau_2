@@ -1,22 +1,23 @@
-"use server";
-
+import { NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { encrypt } from "@/lib/session";
 import { RowDataPacket } from "mysql2";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 
-export async function adminLogin(username: string, password: string) {
+export async function POST(req: Request) {
   try {
+    const { username, password } = await req.json();
+
     const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM users WHERE username = ?", [username]);
     if (rows.length === 0) {
-      return { error: "Sai tên đăng nhập hoặc mật khẩu" };
+      return NextResponse.json({ error: "Sai tên đăng nhập hoặc mật khẩu" }, { status: 401 });
     }
 
     const user = rows[0];
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return { error: "Sai tên đăng nhập hoặc mật khẩu" };
+      return NextResponse.json({ error: "Sai tên đăng nhập hoặc mật khẩu" }, { status: 401 });
     }
 
     const sessionData = { id: user.id, username: user.username, role: user.role };
@@ -30,14 +31,9 @@ export async function adminLogin(username: string, password: string) {
       path: "/",
     });
 
-    return { success: true };
+    return NextResponse.json({ success: true });
   } catch (err) {
     console.error(err);
-    return { error: "Lỗi hệ thống" };
+    return NextResponse.json({ error: "Lỗi hệ thống" }, { status: 500 });
   }
-}
-
-export async function adminLogout() {
-  const cookieStore = await cookies();
-  cookieStore.delete("session");
 }
