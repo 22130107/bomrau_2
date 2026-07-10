@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AdminContent, AdminProduct } from "@/components/AdminContent";
 import { getSession } from "@/lib/session";
+import { logoutAction } from "@/app/actions/auth";
 import pool from "@/lib/db";
 import { RowDataPacket } from "mysql2";
 
@@ -15,6 +16,12 @@ export const metadata: Metadata = {
 export const revalidate = 0; // Dynamic rendering
 
 export default async function AdminPage() {
+  const session = await getSession();
+  if (!session || session.role !== "admin") {
+    redirect("/login");
+  }
+
+  const username = (session.username as string) || "Admin";
 
   const [productRows] = await pool.query<RowDataPacket[]>(`
     SELECT p.id, p.title, p.image_url, 
@@ -59,8 +66,21 @@ export default async function AdminPage() {
 
   return (
     <div className="min-h-screen flex flex-col font-[family-name:var(--font-nunito)]">
-      <header className="flex items-center justify-end gap-4 px-4 py-3 border-b border-[rgb(75,85,99)] bg-[rgb(2,6,23)] text-white">
-        <span className="text-[13px] text-[rgba(238,238,238,0.5)]">Trang quản trị (Không yêu cầu login)</span>
+      <header className="flex items-center justify-between px-6 py-4 border-b border-[rgb(51,65,85)] bg-[rgb(2,6,23)] text-white">
+        <div className="flex items-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span className="text-[14px] font-medium text-slate-300">
+            Xin chào, <strong className="text-[rgb(251,191,36)]">{username}</strong>
+          </span>
+        </div>
+        <form action={logoutAction}>
+          <button 
+            type="submit" 
+            className="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-[13px] font-bold rounded-lg transition-all duration-200 shadow-md hover:shadow-rose-900/30 cursor-pointer"
+          >
+            Đăng xuất
+          </button>
+        </form>
       </header>
       <main className="flex-1 py-6 md:py-10 px-4 bg-[rgb(15,23,42)]">
         <AdminContent initialProducts={initialProducts} />

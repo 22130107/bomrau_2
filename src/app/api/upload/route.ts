@@ -6,7 +6,10 @@ import crypto from "crypto";
 import fs from "fs";
 
 export async function POST(req: Request) {
-
+  const session = await getSession();
+  if (!session || session.role !== "admin") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   try {
     const formData = await req.formData();
