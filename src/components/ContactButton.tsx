@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export function ContactButton() {
+export function ContactButton({ link }: { link?: string }) {
   const [open, setOpen] = useState(false);
 
   return (
