@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ 
       error: "Unauthorized: " + JSON.stringify({ 
         hasCookie: !!sessionCookie, 
-        rawCookie: rawCookie ? "PRESENT" : "MISSING",
+        rawCookie: rawCookie ? rawCookie : "MISSING",
         origin, referer 
       }), 
     }, { status: 401 });
