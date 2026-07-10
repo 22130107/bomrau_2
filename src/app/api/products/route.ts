@@ -34,11 +34,7 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const session = await getSession();
-  
-  if (!session || session.role !== "admin") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+
 
   try {
     const body = await req.json();
@@ -69,8 +65,7 @@ export async function POST(req: Request) {
 }
 
 export async function PUT(req: Request) {
-  const session = await getSession();
-  if (!session || session.role !== "admin") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
 
   try {
     const body = await req.json();
@@ -99,8 +94,7 @@ export async function PUT(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const session = await getSession();
-  if (!session || session.role !== "admin") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
 
   try {
     const body = await req.json();

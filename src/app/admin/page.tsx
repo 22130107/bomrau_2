@@ -15,8 +15,6 @@ export const metadata: Metadata = {
 export const revalidate = 0; // Dynamic rendering
 
 export default async function AdminPage() {
-  const session = await getSession() as { id: number; username: string; role: string } | null;
-  if (!session || session.role !== "admin") redirect("/login");
 
   const [productRows] = await pool.query<RowDataPacket[]>(`
     SELECT p.id, p.title, p.image_url, 
@@ -62,8 +60,7 @@ export default async function AdminPage() {
   return (
     <div className="min-h-screen flex flex-col font-[family-name:var(--font-nunito)]">
       <header className="flex items-center justify-end gap-4 px-4 py-3 border-b border-[rgb(75,85,99)] bg-[rgb(2,6,23)] text-white">
-        <span className="text-[13px] text-[rgba(238,238,238,0.5)]">Xin chào, {session.username}</span>
-        <Link href="/api/auth/logout" className="text-[13px] text-[rgb(220,38,38)] hover:text-[rgb(248,113,113)] transition-colors">Đăng xuất</Link>
+        <span className="text-[13px] text-[rgba(238,238,238,0.5)]">Trang quản trị (Không yêu cầu login)</span>
       </header>
       <main className="flex-1 py-6 md:py-10 px-4 bg-[rgb(15,23,42)]">
         <AdminContent initialProducts={initialProducts} />
