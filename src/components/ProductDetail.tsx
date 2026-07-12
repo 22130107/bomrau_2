@@ -44,11 +44,13 @@ export function ProductDetail({
               {name}
             </h1>
             <figure className="relative w-full md:w-[50%] mt-2 md:mt-[12px]">
-              <div className="items-center flex font-bold justify-center absolute w-[50px] md:w-[60px] h-[50px] md:h-[60px] top-0 right-0 text-white text-[18px] md:text-[22px] p-1 z-[2] animate-blink-badge font-[family-name:var(--font-nunito)]">
-                <span className="block text-[rgb(254,239,199)]">-{discount}</span>
-                <span className="block absolute left-0 top-0 right-0 bottom-0 z-[-1] before:absolute before:left-0 before:top-0 before:right-0 before:bottom-0 before:bg-[rgb(220,38,38)] before:content-[''] before:z-[-1] before:rounded-xs after:absolute after:left-0 after:top-0 after:right-0 after:bottom-0 after:bg-[rgb(220,38,38)] after:content-[''] after:rotate-45 after:z-[-1] after:rounded-xs animate-blink-badge"></span>
-                <span className="block text-[rgb(254,239,199)] text-[14px]">%</span>
-              </div>
+              {discount > 0 && (
+                <div className="items-center flex font-bold justify-center absolute w-[50px] md:w-[60px] h-[50px] md:h-[60px] top-0 right-0 text-white text-[18px] md:text-[22px] p-1 z-[2] animate-blink-badge font-[family-name:var(--font-nunito)]">
+                  <span className="block text-[rgb(254,239,199)]">-{discount}</span>
+                  <span className="block absolute left-0 top-0 right-0 bottom-0 z-[-1] before:absolute before:left-0 before:top-0 before:right-0 before:bottom-0 before:bg-[rgb(220,38,38)] before:content-[''] before:z-[-1] before:rounded-xs after:absolute after:left-0 after:top-0 after:right-0 after:bottom-0 after:bg-[rgb(220,38,38)] after:content-[''] after:rotate-45 after:z-[-1] after:rounded-xs animate-blink-badge"></span>
+                  <span className="block text-[rgb(254,239,199)] text-[14px]">%</span>
+                </div>
+              )}
               <div className="relative aspect-[16/9]">
                 <img src={allImages[selectedImage]} className="absolute inset-0 w-full h-full object-contain rounded-2xl" alt={name} sizes="(max-width: 768px) 100vw, 50vw" fetchPriority="high" />
               </div>

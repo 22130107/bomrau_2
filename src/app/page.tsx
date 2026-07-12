@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ q
     params.push(likeQ, likeQ, likeQ, likeQ);
   }
 
-  query += " ORDER BY is_pinned DESC, id DESC";
+  query += " ORDER BY is_pinned DESC, price ASC, id DESC";
 
   const [products] = await pool.query<RowDataPacket[]>(query, params);
 

@@ -23,7 +23,7 @@ export async function GET(req: Request) {
       params.push(likeQ, likeQ, likeQ, likeQ);
     }
     
-    query += " ORDER BY p.is_pinned DESC, p.id DESC";
+    query += " ORDER BY p.is_pinned DESC, p.price ASC, p.id DESC";
     
     const [rows] = await pool.query<RowDataPacket[]>(query, params);
     return NextResponse.json({ products: rows });

@@ -3,6 +3,7 @@ interface DiscountBadgeProps {
 }
 
 export function DiscountBadge({ discount }: DiscountBadgeProps) {
+  if (discount <= 0) return null;
   return (
     <div className="items-center flex font-bold justify-center absolute w-[36px] md:w-[60px] h-[36px] md:h-[60px] top-0 right-0 text-white text-[12px] md:text-[22px] tracking-[0.1px] md:tracking-[0.22px] leading-[14px] md:leading-[30px] p-0.5 md:p-1 z-[2] animate-blink-badge font-[family-name:var(--font-nunito)]">
       <span className="block text-[rgb(254,239,199)]">-{discount}</span>
